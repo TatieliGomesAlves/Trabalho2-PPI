@@ -9,7 +9,7 @@ export default class PacoteViagemDB {
     try {
       const conexao = await conectar();
       const sql = `CREATE TABLE IF NOT EXISTS pacoteViagem (
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         destino VARCHAR(100) NOT NULL, 
         descricao VARCHAR(100) NOT NULL,
         incluso VARCHAR(100) NOT NULL,
@@ -17,7 +17,7 @@ export default class PacoteViagemDB {
         localdePartida VARCHAR(100) NOT NULL,
         localdeDestino VARCHAR(100) NOT NULL,
         preco VARCHAR (100) NOT NULL,
-        qtdlugares VARCHAR(100) NOT NULL,      
+        qtdlugares VARCHAR(100) NOT NULL      
       )`;
       await conexao.execute(sql);
     } catch (erro) {
@@ -28,10 +28,9 @@ export default class PacoteViagemDB {
   async gravar(pacoteViagem){
     if (pacoteViagem instanceof PacoteViagem){
       const conexao = await conectar();
-      const sql = `INSERT INTO pacoteViagem (id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-      const parametros = [
-        pacoteViagem.id,
+      const sql = `INSERT INTO pacoteViagem (destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        const parametros = [
         pacoteViagem.destino,
         pacoteViagem.descricao,
         pacoteViagem.incluso,
@@ -39,12 +38,13 @@ export default class PacoteViagemDB {
         pacoteViagem.localdePartida,
         pacoteViagem.localdeDestino,
         pacoteViagem.preco,
-        pacoteViagem.qtdlugares,
+        pacoteViagem.qtdlugares
       ];
-      await conexao.execute(sql,parametros);
+      await conexao.execute(sql, parametros);
       await conexao.release();
     }
   }
+
   async atualizar(pacoteViagem){
     if (pacoteViagem instanceof PacoteViagem) {
       const conexao = await conectar();
@@ -59,9 +59,41 @@ export default class PacoteViagemDB {
         pacoteViagem.localdeDestino,
         pacoteViagem.preco,
         pacoteViagem.qtdlugares
-      ]
+      ];
     }
   }
-  async excluir(pacoteViagem){}
-  async consultar(pacoteViagem){}
+
+  async excluir(pacoteViagem) {
+    if (pacoteViagem instanceof PacoteViagem){
+      const conexao = await conectar();
+      const sql = `DELETE FROM pacoteViagem WHERE destino = 'Londres'`;
+      const parametros = [pacoteViagem.id];
+      await conexao.execute(sql,parametros);
+      await conexao.release();
+    }
+
+
+  }
+  async consultar(pacoteViagem){
+    const conexao = await conectar();
+    const sql = `SELECT * FROM pacoteViagem ORDER BY destino`;
+    const [registros, campos] = await conexao.execute(sql);
+    await conexao.release();
+    let listaPacoteViagem = [];
+    for (const registro of registros) {
+          const pacoteViagem = new PacoteViagem(registro.id,
+                                                registro.destino,
+                                                registro.descricao,
+                                                registro.incluso,
+                                                registro.duracao,
+                                                registro.localdePartida,
+                                                registro.localdeDestino,
+                                                registro.preco,
+                                                registro.qtdlugares
+                                                );
+
+          listaPacoteViagem.push(pacoteViagem);
+    }
+    return listaPacoteViagem;
+  }
 }

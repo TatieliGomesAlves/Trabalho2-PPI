@@ -1,5 +1,7 @@
- export default class PacoteViagem {
+import PacoteViagemDB from "../DataBase/pacoteViagemDB.js";
+export default class PacoteViagem {
 
+  #id;
   #destino;
   #descricao;
   #incluso;
@@ -8,10 +10,11 @@
   #localdeDestino;
   #preco;
   #qtdlugares;
-  #id;
-
-constructor(destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares, id) {
   
+
+constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares) {
+
+  this.#id = id;
   this.#destino = destino;
   this.#descricao = descricao;
   this.#incluso = incluso;
@@ -20,9 +23,15 @@ constructor(destino, descricao, incluso, duracao, localdePartida, localdeDestino
   this.#localdeDestino = localdeDestino;
   this.#preco = preco;
   this.#qtdlugares = qtdlugares;
-  this.#id = id;
-
+  
   }
+
+    get id() {
+    return this.#id;
+    }
+    set id(novoID){
+    this.#id = novoID;
+    }
 
     get destino() {
       return this.#destino;
@@ -80,16 +89,11 @@ constructor(destino, descricao, incluso, duracao, localdePartida, localdeDestino
       this.#qtdlugares = QtdLugares;
     }
 
-    get id() {
-      return this.#id;
-    }
-    set id(novoID){
-      this.#id = novoID;
-    }
 
 
     toJSON(){
       return {
+        "id": this.#id,
         "destino": this.#destino,
         "descricao": this.#descricao,
         "incluso": this.#incluso,
@@ -97,9 +101,26 @@ constructor(destino, descricao, incluso, duracao, localdePartida, localdeDestino
         "localdePartida": this.#localdePartida,
         "localdeDestino": this.#localdeDestino,
         "preco": this.#preco,
-        "qtdlugares": this.#qtdlugares,
-        "id": this.#id
+        "qtdlugares": this.#qtdlugares
       }
     }
- 
+    async gravar(){
+      const pacoteDB = new PacoteViagemDB();
+      pacoteDB.gravar(this);
+    }
+
+    async atualizar() {
+      const pacoteDB = new PacoteViagemDB();
+      pacoteDB.atualizar(this);
+    }
+
+    async excluir() {
+      const pacoteDB = new PacoteViagemDB();
+      pacoteDB.excluir(this);
+    }
+
+    async consultar() {
+      const pacoteDB = new PacoteViagemDB();
+      return await pacoteDB.consultar(this);
+    }
 }
