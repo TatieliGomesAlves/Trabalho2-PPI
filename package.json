@@ -1,0 +1,31 @@
+{
+  "name": "trabalho2-ppi",
+  "version": "1.0.0",
+  "description": "Backend da aplicacao de cadastro de cliente",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TatieliGomesAlves/Trabalho2-PPI.git"
+  },
+  "keywords": [
+    "API",
+    "back",
+    "end",
+    "MVC",
+    "REST"
+  ],
+  "author": "Tatieli Gomes Alves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TatieliGomesAlves/Trabalho2-PPI/issues"
+  },
+  "homepage": "https://github.com/TatieliGomesAlves/Trabalho2-PPI#readme",
+  "dependencies": {
+    "mysql2": "^3.12.0"
+  }
+}
