@@ -38,49 +38,49 @@ pacoteViagem.excluir().then(() => {
 
 pacoteViagem.destino = "Londres"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("O destino desse pacote de viagem é: " + pacoteViagem.destino);
+console.log(pacoteViagem.toJSON());
+console.log("O destino desse pacote de viagem é: " + pacoteViagem.destino);
 
 
 pacoteViagem.descricao = "A mais bela cidade de Londres"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("A descrição da cidade: " + pacoteViagem.descricao);
+console.log(pacoteViagem.toJSON());
+console.log("A descrição da cidade: " + pacoteViagem.descricao);
 
 
 pacoteViagem.incluso = "Hospedagem, café da manha, guia turístico, passagens aereas, translado ida e volta"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("Incluso no pacote de viagem: " + pacoteViagem.incluso);
+console.log(pacoteViagem.toJSON());
+console.log("Incluso no pacote de viagem: " + pacoteViagem.incluso);
 
 
 pacoteViagem.duracao = "5 dias"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("A viagem tem a duração de: " + pacoteViagem.duracao);
+console.log(pacoteViagem.toJSON());
+console.log("A viagem tem a duração de: " + pacoteViagem.duracao);
 
 
 pacoteViagem.localdePartida = "GRU"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("O voo sairá de: " + pacoteViagem.localdePartida);
+console.log(pacoteViagem.toJSON());
+console.log("O voo sairá de: " + pacoteViagem.localdePartida);
 
 
 pacoteViagem.localdeDestino = "LHR"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("O voo chegará em: " + pacoteViagem.localdeDestino);
+console.log(pacoteViagem.toJSON());
+console.log("O voo chegará em: " + pacoteViagem.localdeDestino);
 
 
 pacoteViagem.preco = "5.500"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("O valor por viajante é: " + pacoteViagem.preco);
+console.log(pacoteViagem.toJSON());
+console.log("O valor por viajante é: " + pacoteViagem.preco);
 
 
 pacoteViagem.qtdlugares = "5"
 
-// console.log(pacoteViagem.toJSON());
-// console.log("A quantidade de lugares são: " + pacoteViagem.qtdlugares);
+console.log(pacoteViagem.toJSON());
+console.log("A quantidade de lugares são: " + pacoteViagem.qtdlugares);
 
 
