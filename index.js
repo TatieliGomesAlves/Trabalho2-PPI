@@ -8,6 +8,7 @@ var pacoteViagem = new PacoteViagem("Londres",
                                     "LHR",
                                     "5.500",
                                     "05");
+                                    
 
 pacoteViagem.gravar().then(()=> {
     console.log("Pacote de viagem gravado com sucesso!");
