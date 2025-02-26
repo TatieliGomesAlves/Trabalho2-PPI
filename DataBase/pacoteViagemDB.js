@@ -18,7 +18,7 @@ export default class PacoteViagemDB {
         localdeDestino VARCHAR(100) NOT NULL,
         preco VARCHAR (100) NOT NULL,
         qtdlugares VARCHAR(100) NOT NULL      
-      )`;
+        )`;
       await conexao.execute(sql);
     } catch (erro) {
       console.log("Erro ao iniciar a tabela pacoteViagem:" + erro);
@@ -48,18 +48,10 @@ export default class PacoteViagemDB {
   async atualizar(pacoteViagem){
     if (pacoteViagem instanceof PacoteViagem) {
       const conexao = await conectar();
-      const sql = `UPDATE pacoteViagem SET WHERE id = ? destino = ?, descricao = ?, incluso = ?, duracao = ?, localdaPartida = ?, localdeDestino = ?, preco = ?, qtdlugares = ?`;
-      const parametros = [
-        pacoteViagem.id,
-        pacoteViagem.destino,
-        pacoteViagem.descricao,
-        pacoteViagem.incluso,
-        pacoteViagem.duracao,
-        pacoteViagem.localdePartida,
-        pacoteViagem.localdeDestino,
-        pacoteViagem.preco,
-        pacoteViagem.qtdlugares
-      ];
+      const sql = `UPDATE pacoteViagem SET preco = 8.000 WHERE destino = "Londres"`;
+      const parametros = [pacoteViagem.preco];
+      await conexao.execute(sql,parametros);
+      await conexao.release();
     }
   }
 
@@ -72,9 +64,10 @@ export default class PacoteViagemDB {
       await conexao.release();
     }
 
-
   }
+
   async consultar(pacoteViagem){
+    if (pacoteViagem instanceof PacoteViagem){
     const conexao = await conectar();
     const sql = `SELECT * FROM pacoteViagem ORDER BY destino`;
     const [registros, campos] = await conexao.execute(sql);
@@ -95,5 +88,6 @@ export default class PacoteViagemDB {
           listaPacoteViagem.push(pacoteViagem);
     }
     return listaPacoteViagem;
+  }
   }
 }

@@ -10,7 +10,7 @@ export default class PacoteViagem {
   #localdeDestino;
   #preco;
   #qtdlugares;
-  
+
 
 constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares) {
 
@@ -23,7 +23,7 @@ constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDes
   this.#localdeDestino = localdeDestino;
   this.#preco = preco;
   this.#qtdlugares = qtdlugares;
-  
+
   }
 
     get id() {
@@ -88,8 +88,6 @@ constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDes
     set qtdlugares(QtdLugares){
       this.#qtdlugares = QtdLugares;
     }
-
-
 
     toJSON(){
       return {

@@ -9,7 +9,6 @@ var pacoteViagem = new PacoteViagem("Londres",
                                     "5.500",
                                     "05");
                                     
-
 pacoteViagem.gravar().then(()=> {
     console.log("Pacote de viagem gravado com sucesso!");
 }).catch((erro) => {
@@ -82,5 +81,3 @@ pacoteViagem.qtdlugares = "5"
 
 console.log(pacoteViagem.toJSON());
 console.log("A quantidade de lugares são: " + pacoteViagem.qtdlugares);
-
-
