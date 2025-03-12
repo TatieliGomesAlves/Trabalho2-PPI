@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/TatieliGomesAlves/Trabalho2-PPI#readme",
   "dependencies": {
+    "express": "^4.21.2",
     "mysql2": "^3.12.0"
   }
 }
