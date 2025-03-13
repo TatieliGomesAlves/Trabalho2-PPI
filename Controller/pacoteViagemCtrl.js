@@ -1,4 +1,4 @@
-import PacoteViagem from "../Model/pacoteViagem";
+import PacoteViagem from "../Model/pacoteViagem.js";
 
 export default class PacoteViagemCtrl{
 
@@ -48,10 +48,10 @@ export default class PacoteViagemCtrl{
       }
   }
 
-  alterar(requisicao, resposta) {
+  atualizar(requisicao, resposta) {
     if((requisicao.method === 'PUT' || requisicao.method === 'PATCH') && requisicao.is("application/json")){
       const dados = requisicao.body;
-      const id = dados.id;
+        const id = dados.id;
         const destino = dados.destino;
         const descricao = dados.descricao;
         const incluso = dados.incluso;
@@ -60,19 +60,20 @@ export default class PacoteViagemCtrl{
         const localdeDestino = dados.localdeDestino;
         const preco = dados.preco;
         const qtdlugares = dados.qtdlugares;
-        if (id && destino && descricao && incluso && duracao && localdePartida && localdeDestino && preco && qtdlugares){
+
+        if (id && destino && descricao && incluso && duracao && localdePartida && localdeDestino && preco && qtdlugares) {
           const pacoteViagem = new PacoteViagem(id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares);
-          pacoteViagem.alterar().then(() => {}).catch((erro) => {
+          pacoteViagem.atualizar().then(() => {
             resposta.status(200).json(
               {
                 "status": true,
-                "mensagem": "Pacote de viagem alterado com sucesso!"
+                "mensagem": "Pacote de viagem atualizado com sucesso!"
               }
             );
           }).catch((erro) => {
             resposta.status(500).json({
               "status": false,
-              "mensagem": "Erro ao alterar o pacote de viagem: " + erro
+              "mensagem": "Erro ao atualizar o pacote de viagem: " + erro
             });
           });
 
@@ -135,26 +136,41 @@ export default class PacoteViagemCtrl{
   consultar(requisicao, resposta){
     if (requisicao.method === 'GET'){
       const pacoteViagem = new PacoteViagem();
-      pacoteViagem.consultar().then((listaPacoteViagem) => {
-        resposta.status(200).json(
-          {
-            "status": true,
-            "pacote de viagem": listaPacoteViagem
-          }
-        );
-      }).catch((erro) => {
-        resposta.status(500).json({
-          "status": false,
-          "mensagem": "Erro ao consultar pacote de viagem: " + erro
+
+      if (requisicao.params.destino){
+          pacoteViagem.consultarPorDestino(requisicao.params.destino).then((listaPacoteViagem) => {
+            resposta.status(200).json(
+              {
+                "status": true,
+                "pacote de viagem": listaPacoteViagem
+              }
+            );
+          }).catch((erro) => {
+            resposta.status(500).json({
+              "status": false,
+              "mensagem": "Erro ao consultar pacote de viagem: " + erro
+            });
+          });
+      } else {
+        pacoteViagem.consultar().then((listaPacoteViagem) => {
+          resposta.status(200).json(
+            {
+              "status": true,
+              "pacote de viagem": listaPacoteViagem
+            }
+          );
+        }).catch((erro) => {
+          resposta.status(500).json({
+            "status": false,
+            "mensagem": "Erro ao consultar pacote de viagem: " + erro
+          });
         });
-      });
-    }
-    else {
+      }
+    } else {
       resposta.status(400).json({
         "status": false,
         "mensagem": "Requisição inválida"
       });
     }
   }
-
 }

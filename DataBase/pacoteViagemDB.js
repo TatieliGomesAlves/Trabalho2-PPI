@@ -25,8 +25,8 @@ export default class PacoteViagemDB {
     }
   }
 
-  async gravar(pacoteViagem){
-    if (pacoteViagem instanceof PacoteViagem){
+  async gravar(pacoteViagem) {
+    if (pacoteViagem instanceof PacoteViagem) {
       const conexao = await conectar();
       const sql = `INSERT INTO pacoteViagem (destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -45,11 +45,14 @@ export default class PacoteViagemDB {
     }
   }
 
-  async atualizar(pacoteViagem){
+  async atualizar(pacoteViagem) {
     if (pacoteViagem instanceof PacoteViagem) {
       const conexao = await conectar();
-      const sql = `UPDATE pacoteViagem SET preco = 8.000 WHERE destino = "Londres"`;
-      const parametros = [pacoteViagem.preco];
+      const sql = `UPDATE pacoteViagem SET preco = ? WHERE destino = ?`;
+      const parametros = [
+        pacoteViagem.preco,
+        pacoteViagem.destino
+      ];
       await conexao.execute(sql,parametros);
       await conexao.release();
     }
@@ -58,7 +61,7 @@ export default class PacoteViagemDB {
   async excluir(pacoteViagem) {
     if (pacoteViagem instanceof PacoteViagem){
       const conexao = await conectar();
-      const sql = `DELETE FROM pacoteViagem WHERE destino = 'Londres'`;
+      const sql = `DELETE FROM pacoteViagem WHERE destino = ?`;
       const parametros = [pacoteViagem.id];
       await conexao.execute(sql,parametros);
       await conexao.release();
@@ -66,10 +69,10 @@ export default class PacoteViagemDB {
 
   }
 
-  async consultar(pacoteViagem){
+  async consultar(pacoteViagem) {
     if (pacoteViagem instanceof PacoteViagem){
     const conexao = await conectar();
-    const sql = `SELECT * FROM pacoteViagem ORDER BY destino`;
+    const sql = `SELECT * FROM pacoteViagem ORDER BY id`;
     const [registros, campos] = await conexao.execute(sql);
     await conexao.release();
     let listaPacoteViagem = [];
@@ -89,5 +92,27 @@ export default class PacoteViagemDB {
     }
     return listaPacoteViagem;
   }
+  }
+  async consultarPorDestino(destino){
+    const conexao = await conectar();
+    const sql = `SELECT * FROM pacoteViagem WHERE destino = ?`;
+    const [registros, campos] = await conexao.execute (sql, [destino]);
+    await conexao.release();
+    let listaPacoteViagem = [];
+    for (const registro of registros){
+        const pacoteViagem = new PacoteViagem(registro.id,
+                                              registro.destino,
+                                              registro.descricao,
+                                              registro.incluso,
+                                              registro.duracao,
+                                              registro.localdePartida,
+                                              registro.localdeDestino,
+                                              registro.preco,
+                                              registro.qtdlugares
+                                              );
+
+        listaPacoteViagem.push(pacoteViagem);
+    }
+    return listaPacoteViagem;
   }
 }

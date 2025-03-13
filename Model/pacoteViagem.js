@@ -89,7 +89,7 @@ constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDes
       this.#qtdlugares = QtdLugares;
     }
 
-    toJSON(){
+    toJSON() {
       return {
         "id": this.#id,
         "destino": this.#destino,
@@ -102,7 +102,7 @@ constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDes
         "qtdlugares": this.#qtdlugares
       }
     }
-    async gravar(){
+    async gravar() {
       const pacoteDB = new PacoteViagemDB();
       pacoteDB.gravar(this);
     }
@@ -120,5 +120,10 @@ constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDes
     async consultar() {
       const pacoteDB = new PacoteViagemDB();
       return await pacoteDB.consultar(this);
+    }
+
+    async consultarPorDestino(destino) {
+      const pacoteDB = new PacoteViagemDB();
+      return await pacoteDB.consultarPorDestino(destino);
     }
 }
