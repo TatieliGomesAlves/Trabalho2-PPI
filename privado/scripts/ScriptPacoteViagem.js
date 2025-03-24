@@ -10,20 +10,16 @@ function manipularEnvio(evento) {
     formCadPViagem.classList.add("was-validated");
   } else {
       if (acao == "cadastrar") {
-          adicionarPacoteViagem();
-          formCadPViagem.reset();
-          formCadPViagem.classList.remove("was-validated");
-        }
-        else if (acao == "atualizar") {
-          atualizarPacoteViagem();
-          formCadPViagem.reset();
-        }
-        else if (acao == "excluir") {
-          excluirPacoteViagem();
-          formCadPViagem.reset();
-        }
-
-        mostrarTabelaPViagem();
+        adicionarPacoteViagem();
+        formCadPViagem.reset();
+        formCadPViagem.classList.remove("was-validated");
+      } else if (acao == "atualizar") {
+        atualizarPacoteViagem();
+        formCadPViagem.reset();
+      } else if (acao == "excluir") {
+        excluirPacoteViagem();
+        formCadPViagem.reset();
+      }
   }
 }
 
@@ -66,6 +62,7 @@ function adicionarPacoteViagem() {
     .then((dadosRecebidos) => {
       if (dadosRecebidos.status) {
         mostrarMensagem(dadosRecebidos.mensagem, "success");
+        mostrarTabelaPViagem();
       } else {
         alert(dadosRecebidos.mensagem, "danger");
       }
@@ -132,8 +129,6 @@ function excluirPacoteViagem() {
       });
   }
 }
-
-
 
 function mostrarMensagem(mensagem, tipo = "success") {
   const espacoMensagem = document.getElementById("mensagem");
