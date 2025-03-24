@@ -12,7 +12,7 @@ export default class PacoteViagem {
   #qtdlugares;
 
 
-constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares) {
+  constructor(id, destino, descricao, incluso, duracao, localdePartida, localdeDestino, preco, qtdlugares) {
 
   this.#id = id;
   this.#destino = destino;
